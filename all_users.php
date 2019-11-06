@@ -24,22 +24,11 @@
 			} catch (PDOException $e) {
 				throw new PDOException($e->getMessage(), (int)$e->getCode());
 			}
-			$stmt = $pdo->query('SELECT email FROM users');
+			$stmt = $pdo->query('SELECT * FROM users');
 			while ($row = $stmt->fetch())
 			{
-				echo $row['email'] . "\n";
+				echo '<tr><td>'.$row['nom'].'</td><td>'.$row['prenom'].'</td><td>'.$row['email'].'</td></tr>';
 			}
-			// foreach($tabMedic as $ligne){
-			// $tabMedic = explode(';', $ligne);
-			// $des=$tabMedic[0];
-			// $type=$tabMedic[1];
-			// $labo=$tabMedic[2];
-			// echo '<tr>';
-			// echo '<td>'.$des.'</td>';
-			// echo '<td>'.$type.'</td>';
-			// echo '<td>'.$labo.'</td>';
-			// echo '</tr>';
-			// }	
 			?>
 		</table>
 	</body>

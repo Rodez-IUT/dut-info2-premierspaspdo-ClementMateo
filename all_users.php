@@ -27,6 +27,8 @@
 			$stmt = $pdo->query('SELECT *
 								 FROM users U
 								 JOIN status S ON U.status_id = S.id
+								 WHERE U.status_id = "2"
+								 AND username LIKE "e%"
 								 ORDER BY username');
 			echo '<table>';	
 			echo '<tr><td>Id</td><td>Username</td><td>Email</td><td>Status</td></tr>';

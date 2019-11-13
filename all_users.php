@@ -6,7 +6,6 @@
    </head>
 <?php ?>
 	<body>
-		<table>
 			<?php
 			$host = 'localhost';
 			$db   = 'my_activities';
@@ -24,12 +23,30 @@
 			} catch (PDOException $e) {
 				throw new PDOException($e->getMessage(), (int)$e->getCode());
 			}
-			$stmt = $pdo->query('SELECT * FROM users');
-			while ($row = $stmt->fetch())
-			{
-				echo '<tr><td>'.$row['nom'].'</td><td>'.$row['prenom'].'</td><td>'.$row['email'].'</td></tr>';
+			$pdo->beginTransaction();
+			$stmt = $pdo->query('SELECT *
+								 FROM users U
+								 JOIN status S ON U.status_id = S.id
+								 ORDER BY username');
+			echo '<table>';	
+			echo '<tr><td>Id</td><td>Username</td><td>Email</td><td>Status</td></tr>';
+			while ($row = $stmt->fetch()){
+				echo '<tr><td>'.$row['id'].'</td><td>'.$row['username'].'</td><td>'.$row['email']
+				.'</td><td>'.$row['name'].'</td></tr>';
 			}
+			echo '</table>';
+			
+			// try {
+				// $pdo->beginTransaction();
+				// $stmt = $pdo->prepare("INSERT INTO users (name) VALUES (?)");
+				// foreach (['Lisa','Frederic'] as $name){
+					// $stmt->execute([$name]);
+				// }
+				// $pdo->commit();
+			// }catch (Exception $e){
+				// $pdo->rollBack();
+				// throw $e;
+			// }
 			?>
-		</table>
 	</body>
 </html>

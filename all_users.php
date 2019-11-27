@@ -8,6 +8,7 @@
             border-collapse: collapse;
             width: 100%;
         }
+
         th, td {
             padding: 8px;
             text-align: left;
@@ -36,9 +37,11 @@ try {
     echo $e->getMessage();
     throw new PDOException($e->getMessage(), (int)$e->getCode());
 }
-function get($name) {
+function get($name)
+{
     return isset($_GET[$name]) ? $_GET[$name] : null;
 }
+
 ?>
 
 <h1>All Users</h1>
